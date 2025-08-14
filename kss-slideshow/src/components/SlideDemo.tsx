@@ -9,6 +9,7 @@ import {
   type Slide
 } from './slides';
 import Button from './Button';
+import { kssSlides } from '../data/kssSlides';
 
 const DemoContainer = styled.div`
   width: 100%;
@@ -49,66 +50,72 @@ const ButtonGroup = styled.div`
   `)}
 `;
 
-// Sample slide data with different image aspects
-const sampleSlides: Array<Slide & { type: 'text' | 'imageLeft' | 'imageRight' | 'fullBleed' }> = [
-  {
-    type: 'text',
-    title: 'Text-Only Slide',
-    body: 'This slide demonstrates clean typography with no distracting images. Perfect for key messages, quotes, or important announcements.\n\nThe responsive layout adapts beautifully across all screen sizes.'
-  },
-  {
-    type: 'imageLeft',
-    title: 'Wide Image Layout',
-    body: 'This layout places a wide-aspect image on the left with text content on the right. The 16:9 aspect ratio is perfect for landscapes, screenshots, or panoramic shots.\n\nThe grid layout automatically stacks on mobile devices.',
-    image: {
-      src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=450&fit=crop&crop=entropy',
-      alt: 'Mountain landscape with wide aspect ratio',
-      aspect: 'wide'
-    }
-  },
-  {
-    type: 'imageRight',
-    title: 'Square Image Layout',
-    body: 'Here we have a square image positioned on the right. The 1:1 aspect ratio works great for products, portraits, or social media content.\n\nNotice how the layout maintains balance across different screen sizes.',
-    image: {
-      src: 'https://images.unsplash.com/photo-1494790108755-2616c96470d4?w=600&h=600&fit=crop&crop=entropy',
-      alt: 'Portrait photo with square aspect ratio',
-      aspect: 'square'
-    }
-  },
-  {
-    type: 'imageLeft',
-    title: 'Portrait Image Layout',
-    body: 'This slide features a portrait-oriented image with a 3:4 aspect ratio. Perfect for showcasing tall buildings, full-body portraits, or mobile app screenshots.\n\nThe layout intelligently adjusts the image container height.',
-    image: {
-      src: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=450&h=600&fit=crop&crop=entropy',
-      alt: 'Tall building with portrait aspect ratio',
-      aspect: 'portrait'
-    }
-  },
-  {
-    type: 'fullBleed',
-    title: 'Full-Bleed Experience',
-    body: 'The full-bleed layout creates an immersive experience with the image filling the entire viewport. Text appears in a glassmorphism container that adapts its position based on the image aspect ratio.\n\nThis layout is perfect for dramatic presentations and hero slides.',
-    image: {
-      src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&crop=entropy',
-      alt: 'Dramatic mountain landscape for full-bleed display',
-      aspect: 'wide'
-    }
-  }
-];
+const ProgressBar = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+`;
+
+const ProgressFill = styled.div<{ progress: number }>`
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    ${({ theme }) => theme.colors.primary[500]} 0%,
+    ${({ theme }) => theme.colors.secondary[500]} 100%
+  );
+  width: ${({ progress }) => progress}%;
+  transition: width 0.3s ease;
+`;
+
+const SlideTitle = styled.div`
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  ${media.md(`
+    max-width: 300px;
+  `)}
+`;
 
 const SlideDemo: React.FC = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const currentSlide = sampleSlides[currentSlideIndex];
+  const currentSlide = kssSlides[currentSlideIndex];
+  const progress = ((currentSlideIndex + 1) / kssSlides.length) * 100;
 
   const nextSlide = () => {
-    setCurrentSlideIndex((prev) => (prev + 1) % sampleSlides.length);
+    setCurrentSlideIndex((prev) => (prev + 1) % kssSlides.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlideIndex((prev) => (prev - 1 + sampleSlides.length) % sampleSlides.length);
+    setCurrentSlideIndex((prev) => (prev - 1 + kssSlides.length) % kssSlides.length);
   };
+
+  // Keyboard navigation
+  React.useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowRight' || event.key === ' ') {
+        event.preventDefault();
+        nextSlide();
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        prevSlide();
+      } else if (event.key === 'Home') {
+        event.preventDefault();
+        setCurrentSlideIndex(0);
+      } else if (event.key === 'End') {
+        event.preventDefault();
+        setCurrentSlideIndex(kssSlides.length - 1);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, []);
 
   const renderSlide = () => {
     switch (currentSlide.type) {
@@ -127,11 +134,16 @@ const SlideDemo: React.FC = () => {
 
   return (
     <DemoContainer>
+      <ProgressBar>
+        <ProgressFill progress={progress} />
+      </ProgressBar>
+      
       <Navigation>
         <SlideIndicator>
-          {currentSlide.type.charAt(0).toUpperCase() + currentSlide.type.slice(1)} Layout
-          {currentSlide.image && ` • ${currentSlide.image.aspect} aspect`}
-          {` (${currentSlideIndex + 1} of ${sampleSlides.length})`}
+          <SlideTitle>{currentSlide.title}</SlideTitle>
+          <div style={{ opacity: 0.7, fontSize: '0.85em', marginTop: '2px' }}>
+            {currentSlideIndex + 1} of {kssSlides.length}
+          </div>
         </SlideIndicator>
         
         <ButtonGroup>
@@ -139,6 +151,7 @@ const SlideDemo: React.FC = () => {
             variant="outline" 
             size="sm" 
             onClick={prevSlide}
+            disabled={currentSlideIndex === 0}
           >
             ← Previous
           </Button>
@@ -146,6 +159,7 @@ const SlideDemo: React.FC = () => {
             variant="outline" 
             size="sm" 
             onClick={nextSlide}
+            disabled={currentSlideIndex === kssSlides.length - 1}
           >
             Next →
           </Button>
