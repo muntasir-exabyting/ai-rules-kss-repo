@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { flex, media, animations, transition } from '../../styles/utils';
 import { Slide } from '../../../types/Slide';
+import TextRenderer from '../TextRenderer';
 
 const SlideContainer = styled.div`
   min-height: 100vh;
@@ -150,7 +151,7 @@ const ImageRightSlide: React.FC<ImageRightSlideProps> = ({ slide, className }) =
     <SlideContainer className={className}>
       <ContentWrapper>
         <Title>{slide.title}</Title>
-        <Body>{slide.body}</Body>
+        <Body as={TextRenderer}>{slide.body}</Body>
       </ContentWrapper>
       <ImageWrapper $aspect={slide.image.aspect}>
         <Image src={slide.image.src} alt={slide.image.alt} />

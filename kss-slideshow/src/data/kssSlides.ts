@@ -11,7 +11,7 @@ export const kssSlides: KSSSlide[] = [
     title: 'Make AI Tools Behave',
     body: 'Practical Rules for Cursor • Windsurf • Warp • Gemini CLI\n\n60-minute hands-on session\nTransform unpredictable AI into policy-compliant assistants',
     image: {
-      src: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1920&h=1080&fit=crop&crop=entropy',
+      src: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&h=1080&fit=crop&crop=entropy',
       alt: 'AI and technology concept with neural networks and code',
       aspect: 'wide'
     }
@@ -23,7 +23,7 @@ export const kssSlides: KSSSlide[] = [
     title: 'The AI Chaos Problem',
     body: 'Sound familiar?\n\n• AI suggests outdated patterns you migrated away from\n• Ignores your team\'s coding standards and conventions\n• Generates code that fails your quality gates\n• Inconsistent behavior across different developers\n\nResult: More time fixing AI output than writing code yourself.',
     image: {
-      src: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=450&fit=crop&crop=entropy',
+      src: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=450&fit=crop&crop=entropy',
       alt: 'Frustrated developer looking at messy code on multiple monitors',
       aspect: 'wide'
     }
@@ -42,7 +42,7 @@ export const kssSlides: KSSSlide[] = [
     title: 'Tools We\'ll Configure',
     body: 'Each tool has different rule syntax:\n\n🎯 **Cursor**: .cursorrules (MDC syntax)\n🌊 **Windsurf**: .windsurfrules (Markdown)\n⚡ **Warp**: Plain text with workarounds\n💎 **Gemini CLI**: GEMINI.md files\n\nSame principles, different implementations.',
     image: {
-      src: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&h=600&fit=crop&crop=entropy',
+      src: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=600&fit=crop&crop=entropy',
       alt: 'Collection of modern development tools and code editors',
       aspect: 'square'
     }
@@ -54,7 +54,7 @@ export const kssSlides: KSSSlide[] = [
     title: 'Cursor: MDC Syntax Rules',
     body: 'Cursor uses .cursorrules files with MDC (Markdown + Components) syntax:\n\n```\n# Project Rules\n- Use TypeScript strict mode\n- Follow React functional patterns\n- No class components\n\n## API Guidelines  \n- Always handle errors with try/catch\n- Use Zod for validation\n```\n\nSupports rich formatting and nested structures.',
     image: {
-      src: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=450&fit=crop&crop=entropy',
+      src: 'https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=800&h=450&fit=crop&crop=entropy',
       alt: 'Modern code editor with TypeScript and React code displayed',
       aspect: 'wide'
     }
@@ -66,7 +66,7 @@ export const kssSlides: KSSSlide[] = [
     title: 'Windsurf: Markdown Rules',
     body: 'Windsurf uses .windsurfrules with standard Markdown:\n\n```markdown\n# Code Style\n- 2-space indentation\n- Semicolons required\n- Single quotes for strings\n\n# Architecture\n- Feature-based folder structure\n- Separate API and UI concerns\n```\n\nSimple, readable, version-controllable.',
     image: {
-      src: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=600&h=600&fit=crop&crop=entropy',
+      src: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&h=600&fit=crop&crop=entropy',
       alt: 'Clean markdown document with structured content',
       aspect: 'square'
     }

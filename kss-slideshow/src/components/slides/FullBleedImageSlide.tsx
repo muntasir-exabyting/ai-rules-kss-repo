@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { flex, media, animations, transition, glassMorphism } from '../../styles/utils';
 import { Slide } from '../../../types/Slide';
+import TextRenderer from '../TextRenderer';
 
 const SlideContainer = styled.div`
   position: relative;
@@ -200,7 +201,7 @@ const FullBleedImageSlide: React.FC<FullBleedImageSlideProps> = ({
       <ContentWrapper $imageAspect={slide.image.aspect}>
         <TextContainer>
           <Title>{slide.title}</Title>
-          <Body>{slide.body}</Body>
+          <Body as={TextRenderer}>{slide.body}</Body>
         </TextContainer>
       </ContentWrapper>
       
